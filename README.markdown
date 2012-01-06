@@ -48,6 +48,8 @@ To install without Git:
 To enable [Gist](http://gist.github.com) support, make sure you've followed the instructions on your [account page](https://github.com/account) for adding your GitHub user and API Token to your global Git config. You can
 create gists without specifying your credentials, but they won't be associated with your account.
 
+Depending on the location of your ``git`` executable, you may need to add its path to TextMate's PATH variable in Preferences -> Advanced -> Shell Variables
+
 Author
 ======
 
