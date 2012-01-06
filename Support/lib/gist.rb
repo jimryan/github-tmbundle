@@ -2,7 +2,7 @@
 # Taken from defunkt's gist repository: http://github.com/defunkt/gist/tree/master
 
 require 'open-uri'
-require 'net/http'
+require 'net/https'
 
 module Gist
   extend self
@@ -23,9 +23,13 @@ module Gist
   
   def write(private_gist)
     load_files
-    url = URI.parse('http://gist.github.com/gists')
-    req = Net::HTTP.post_form(url, data(private_gist))
-    url = copy req['Location']
+    url = URI.parse('https://gist.github.com/gists')
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    req = Net::HTTP::Post.new(url.request_uri)
+    req.set_form_data data(private_gist)
+    resp = http.request(req)
+    url = copy resp['Location']
     puts "Created gist at #{url}. URL copied to clipboard."
     clear
   end
